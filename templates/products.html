@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Produits Disponibles</h2>
+<p>Sélectionnez un produit pour passer une commande rapide.</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Prix</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.list_price }} €</td>
+            <td>
+                <form action="/create_order" method="POST" class="d-flex">
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <input type="number" name="quantity" value="1" min="1" class="form-control me-2" style="width: 80px;">
+                    <button type="submit" class="btn btn-success btn-sm">Commander</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
