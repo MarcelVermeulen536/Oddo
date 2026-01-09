@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Suivi de commande</h2>
+<form method="POST" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="ref" class="form-control" placeholder="Entrez la référence (ex: S00014)" required>
+        <button class="btn btn-primary" type="submit">Rechercher</button>
+    </div>
+</form>
+
+{% if order %}
+<div class="card">
+    <div class="card-header">
+        Détails de la commande : <strong>{{ order.name }}</strong>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Statut : 
+            {% if order.state == 'draft' %} <span class="badge bg-warning">Devis</span>
+            {% elif order.state == 'sale' %} <span class="badge bg-success">Confirmée</span>
+            {% else %} <span class="badge bg-secondary">{{ order.state }}</span>
+            {% endif %}
+        </h5>
+        <p class="card-text">Montant total : {{ order.amount_total }} €</p>
+        <p class="card-text">Date : {{ order.date_order }}</p>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
